@@ -6,7 +6,7 @@ The Nelder-Mead method is implemented in `nelder_mead.c`, and it is separated fr
 
 Currently a simple [sum of squares function](http://www.sfu.ca/~ssurjano/sumsqu.html), which allows function spaces of arbitrary dimension, is implemented in `cost_fun.c`.
 
-In the package, we provide a stand-alone binary with entry point `main.c`, as well as a [MEX interface](www.mathworks.com/help/matlab/ref/mex.html) `nelder_mead_mex.c` which can be called inside Matlab. Note that this implementation is analogous to the built-in Matlab function `fminsearch`, but it is considerably faster.
+In the package, we provide a stand-alone binary with entry point `main.c`, as well as a [MEX interface](http://www.mathworks.com/help/matlab/ref/mex.html) `nelder_mead_mex.c` which can be called inside Matlab. Note that this implementation is analogous to the built-in Matlab function `fminsearch`, but it is considerably faster.
 
 
 
@@ -35,7 +35,7 @@ Alternatively, within Matlab, you can compile and run the MEX function by execut
 ```
 >> [x, fx] = nelder_mead_mex( x0[, tolX, tolF, maxIter, maxEval, verbose] )
 ```
-where the outputs `x` and `fx` correspond to the position and value of the function minimum, whereas the input `x0` represents the initial point. Other optional inputs control the [stopping conditions](www.mathworks.com/help/matlab/ref/optimset.html) of the minimization. 
+where the outputs `x` and `fx` correspond to the position and value of the function minimum, whereas the input `x0` represents the initial point. Other optional inputs control the [stopping conditions](http://www.mathworks.com/help/matlab/ref/optimset.html) of the minimization. 
 
 ## Licence
 MIT Licence. Copyright (c) 2015 Matteo Maggioni
