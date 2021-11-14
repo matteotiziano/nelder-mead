@@ -6,6 +6,20 @@
 #include "nelder_mead.h"
 
 //-----------------------------------------------------------------------------
+// Utility functions
+//-----------------------------------------------------------------------------
+
+int compare(const void *, const void *);
+
+void simplex_sort(simplex_t *);
+
+void get_centroid(const simplex_t *, point_t *);
+
+int continue_minimization(const simplex_t *, int, int, const optimset_t *);
+
+void update_point(const simplex_t *, const point_t *, double, point_t *);
+
+//-----------------------------------------------------------------------------
 // Main function
 // - n is the dimension of the data
 // - start is the initial point (unchanged in output)
@@ -238,27 +252,4 @@ void update_point(const simplex_t *simplex, const point_t *centroid,
   for (int j = 0; j < n; j++) {
     point->x[j] = (1.0 + lambda) * centroid->x[j] - lambda * simplex->p[n].x[j];
   }
-}
-
-//-----------------------------------------------------------------------------
-// Simple point_t manipulation utlities
-//-----------------------------------------------------------------------------
-
-void copy_point(int n, const point_t *src, point_t *dst) {
-  for (int j = 0; j < n; j++) {
-    dst->x[j] = src->x[j];
-  }
-  dst->fx = src->fx;
-}
-
-void swap_points(int n, point_t *p1, point_t *p2) {
-  double temp;
-  for (int j = 0; j < n; j++) {
-    temp = p1->x[j];
-    p1->x[j] = p2->x[j];
-    p2->x[j] = temp;
-  }
-  temp = p1->fx;
-  p1->fx = p2->fx;
-  p2->fx = temp;
 }
