@@ -4,6 +4,8 @@ Fast C implementation of the [Nelder-Mead method](http://en.wikipedia.org/wiki/N
 ## Introduction
 The Nelder-Mead method is implemented in `nelder_mead.c`. The cost function is passed as a function pointer argument, this provides a general interface allowing for an easy customization. The cost function takes as input a `point_t *` and an (optional) pointer to other constant arguments `void *`. The `point_t` is a custom `struct` composed by a `double *x` (i.e., the n-dimensional position) and a `double fx` (i.e., the value of the cost function calculated at position `x`). On exit the `fx` field of the input will contain the function evaluation. The main `nelder_mead` function takes as input the dimensionality `n` of the function space, the initial n-dimensional `point_t *start` and the final minimizer `point_t *solution`, the pointer to a cost function defined as above, the `void *` pointer to its optional argument, and finally a custom struct `optimset_t` containing the parameters for the optimisation.
 
+Optimization settings are designed to resemble [Matlab optimset](https://www.mathworks.com/help/matlab/ref/optimset.html).
+
 Currently the cost function is a simple [Ackely function](http://www.sfu.ca/%7Essurjano/ackley.html). This function allows function spaces of arbitrary dimension and it also shows how the optional `void *` argument can be used.
 
 ## How to use

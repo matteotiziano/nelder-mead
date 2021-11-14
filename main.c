@@ -58,7 +58,7 @@ int main(int argc, const char *argv[]) {
   optimset.tolf = 0.001;    // tolerance on the function value
   optimset.max_iter = 1000; // maximum number of allowed iterations
   optimset.max_eval = 1000; // maximum number of allowed function evaluations
-  optimset.verbose = 0;     // toggle verbose output during minimization
+  optimset.verbose = 1;     // toggle verbose output during minimization
 
   // cost function parameters
   ackley_param_t ackley_params; // parameters of our cost function

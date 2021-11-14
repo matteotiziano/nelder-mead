@@ -119,7 +119,7 @@ void nelder_mead(int n, const point_t *start, point_t *solution,
           } else {
             // shrink
             if (optimset->verbose) {
-              printf("shrink         ");
+              printf("shrink          ");
             }
             shrink = 1;
           }
@@ -211,16 +211,13 @@ int continue_minimization(const simplex_t *simplex, int eval_count,
     // stop if #evals or #iters are greater than the max allowed
     return 0;
   }
+  // check fx tolerance condition on fx - input simplex is assumed to be sorted
+  const int n = simplex->n;
+  const double condf = simplex->p[n].fx - simplex->p[0].fx;
+  // check fx tolerance condition on x
   double condx = -1.0;
-  double condf = -1.0;
-  for (int i = 1; i < simplex->n + 1; i++) {
-    const double temp = fabs(simplex->p[0].fx - simplex->p[i].fx);
-    if (condf < temp) {
-      condf = temp;
-    }
-  }
-  for (int i = 1; i < simplex->n + 1; i++) {
-    for (int j = 0; j < simplex->n; j++) {
+  for (int i = 1; i < n + 1; i++) {
+    for (int j = 0; j < n; j++) {
       const double temp = fabs(simplex->p[0].x[j] - simplex->p[i].x[j]);
       if (condx < temp) {
         condx = temp;
