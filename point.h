@@ -7,9 +7,9 @@ typedef struct {
   double fx;
 } point_t;
 
-void copy_point(int, const point_t *, point_t *);
+void swap_points(point_t *, point_t *);
 
-void swap_points(int, point_t *, point_t *);
+void copy_point(int, const point_t *, point_t *);
 
 void print_point(int, const point_t *);
 

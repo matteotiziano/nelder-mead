@@ -152,7 +152,7 @@ void nelder_mead(int n, const point_t *start, point_t *solution,
       simplex_sort(&simplex);
     } else {
       for (int i = n - 1; i >= 0 && simplex.p[i + 1].fx < simplex.p[i].fx; i--) {
-        swap_points(n, simplex.p + (i + 1), simplex.p + i);
+        swap_points(simplex.p + (i + 1), simplex.p + i);
       }
     }
     get_centroid(&simplex, &centroid);
@@ -187,14 +187,9 @@ void nelder_mead(int n, const point_t *start, point_t *solution,
 //-----------------------------------------------------------------------------
 
 int compare(const void *arg1, const void *arg2) {
-  const double fx1 = (((point_t *)arg1)->fx);
-  const double fx2 = (((point_t *)arg2)->fx);
-
-  if (fx1 == fx2) {
-    return 0;
-  } else {
-    return (fx1 < fx2) ? -1 : 1;
-  }
+  const double fx1 = ((const point_t *)arg1)->fx;
+  const double fx2 = ((const point_t *)arg2)->fx;
+  return (fx1 > fx2) - (fx1 < fx2);
 }
 
 void simplex_sort(simplex_t *simplex) {
