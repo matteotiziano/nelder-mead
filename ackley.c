@@ -1,30 +1,33 @@
+
+#include <stdlib.h>
 #include <math.h>
+#include "model.h"
 
-#include "ackley.h"
+struct Model { real a, b, c; };
 
-#define SQUARE(x) ((x) * (x))
+model *init_model () {
+    model *mdl = malloc(sizeof (model));
+    mdl->a = 20.0L;
+    mdl->b = 0.2L;
+    mdl->c = 2.0L * acosl(-1.0L);
+    return mdl;
+}
 
-//-----------------------------------------------------------------------------
-// Ackley function
-// - n is the dimension of the data
-// - point is the location where the function will be evaluated
-// - arg contains the parameters of the function
-// More details on the function at http://www.sfu.ca/%7Essurjano/ackley.html
-//-----------------------------------------------------------------------------
+size_t dimensions () {
+    return 3;
+}
 
-void ackley_fun(int n, point_t *point, const void *arg) {
-  // cast the void pointer to what we expect to find
-  const ackley_param_t *params = (const ackley_param_t *)arg;
-
-  // cost function computation for arguments of exp
-  double sum_squares = 0;
-  double sum_cos = 0;
-  for (int i = 0; i < n; i++) {
-    sum_squares += SQUARE(point->x[i]);
-    sum_cos += cos(params->c * point->x[i]);
-  }
-
-  // final result
-  point->fx = -params->a * exp(-params->b * sqrt(sum_squares / n)) -
-              exp(sum_cos / n) + params->a + exp(1.0);
+/*
+ * Ackley function
+ * http://www.sfu.ca/%7Essurjano/ackley.html
+ */
+void cost (const model *mdl, point *pnt) {
+    const size_t n = dimensions();
+    real sum_sqr = 0.0L;
+    real sum_cos = 0.0L;
+    for (size_t i = 0; i < n; i++) {
+        sum_sqr += SQR(pnt->x[i]);
+        sum_cos += cosl(mdl->c * pnt->x[i]);
+    }
+    pnt->y = -mdl->a * expl(-mdl->b * sqrtl(sum_sqr / n)) - expl(sum_cos / n) + mdl->a + expl(1.0L);
 }
